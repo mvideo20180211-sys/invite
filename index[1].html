@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Пойдём?</title>
+<style>
+:root{--bg:#fffdfa;--ink:#4a2c2c;--mut:#8a6464;--rose:#b83355;--g:linear-gradient(90deg,#f26a85,#ff8a75);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:#f6e7e4;font-family:Roboto,system-ui,sans-serif;color:var(--ink);display:flex;justify-content:center;min-height:100vh}
+#app{width:100%;max-width:430px;min-height:100vh;background:var(--bg);position:relative;overflow:hidden}
+.bar{position:absolute;top:0;left:0;height:5px;background:#ff6f7f;border-radius:0 4px 4px 0;transition:width .4s;z-index:5}
+.s{display:none;min-height:100vh;padding:28px 24px;flex-direction:column;animation:in .45s}
+.s.on{display:flex}.c{justify-content:center;align-items:center;text-align:center}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h1{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:30px;line-height:1.2;margin:8px 0 12px}
+p{color:var(--mut);font-size:17px;line-height:1.5;margin:0 0 18px}
+.k{color:var(--rose);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.btn{border:0;border-radius:20px;padding:17px 14px;font:700 16px Roboto,system-ui,sans-serif;cursor:pointer;color:#fff;background:var(--g);flex:1}
+.btn.o{background:#fff;color:var(--ink);border:1.5px solid #ecdcd9}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:12px;width:100%}
+/* envelope */
+.env{position:relative;width:100%;aspect-ratio:.8;background:#f9e3d6;border:1px solid #ecd0c0;border-radius:36px;box-shadow:0 20px 50px #b8335522;overflow:hidden}
+.flap{position:absolute;inset:0 0 40% 0;background:#f6edd0;clip-path:polygon(0 0,100% 0,50% 100%);padding-top:18%;text-align:center}
+.flap small{font-size:12px;letter-spacing:.2em;color:var(--rose);font-weight:700}
+.flap b{display:block;font:700 30px Georgia,serif;margin:8px 0 6px}
+.flap span{font-size:15px;color:var(--mut)}
+.seal{position:absolute;left:50%;top:48%;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 35% 30%,#ee6a88,#b3274b 70%);box-shadow:0 8px 20px #b3274b66,inset 0 0 0 6px #ffffff22;font-size:40px;color:#ffe3ea;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.hint{position:absolute;left:0;right:0;top:66%;text-align:center;font-weight:700;letter-spacing:.12em;color:#a8506a;font-size:17px}
+.st{position:absolute;width:70px;height:78px;background:#fdf1f4;border:2.5px dashed #e0a9b9;border-radius:16px;display:grid;place-items:center;font-size:36px;color:#c2386a}
+/* hero */
+.hero{margin:-28px -24px 20px;height:330px;background:radial-gradient(circle at 50% 40%,#e9a58a55,transparent 60%),linear-gradient(#3f4f93,#8d5f95 70%,#e08a78);display:grid;place-items:center;position:relative;overflow:hidden}
+.hero .u{font-size:120px;line-height:1;position:absolute;top:30px;filter:drop-shadow(0 0 20px #ffd0c0)}
+.hero .o{font-size:88px;margin-top:130px}
+.hero i{position:absolute;color:#ff9fae;font-style:normal;animation:fl 4s infinite ease-in-out}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.heart{font-size:90px;color:#f26a85;animation:pulse 1.6s infinite}
+/* options */
+.opt{display:flex;gap:14px;align-items:center;border:2px solid #ff8a95;background:#fff0f2;border-radius:24px;padding:18px;margin-bottom:14px;font-weight:700}
+.opt small{display:block;color:var(--mut);font-weight:400;margin-top:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.card{border:1.5px solid #ecdcd9;background:#fff;border-radius:26px;padding:12px;text-align:center;font-weight:700;cursor:pointer;transition:.2s}
+.card .im{aspect-ratio:1;border-radius:22px;background:linear-gradient(#f6a9b7,#e8a0ae);display:grid;place-items:center;font-size:64px;margin-bottom:10px}
+.card.sel{border-color:#f26a85;box-shadow:0 0 0 3px #f26a8555;transform:scale(.98)}
+.card.sel .im{background:linear-gradient(#f26a85,#e0809a)}
+/* ticket */
+.top{margin:-28px -24px 0;padding:60px 24px;background:linear-gradient(#f0dde0,#cf8c9e)}
+.t{background:#fdf3f4;border-radius:28px;padding:24px;transform:rotate(-1.5deg);box-shadow:0 18px 40px #7a2b4540;position:relative}
+.t .k{text-align:right;font-weight:500;font-size:12px}
+.t h2{font:500 36px/1.1 Georgia,serif;margin:14px 0 18px;padding-right:80px}
+.t .hh{position:absolute;right:26px;top:48px;font-size:44px;color:#f0506e}
+.t hr{border:0;border-top:1.5px dashed #e5b6c0;margin:12px 0}
+.cols{display:flex;gap:18px}.cols div{flex:1}.cols div+div{border-left:1px solid #e5b6c0;padding-left:18px}
+.t small{display:block;font-size:11px;letter-spacing:.14em;color:#a8506a;font-weight:700;margin-bottom:6px}
+.t b{font-size:19px}
+.t .f{font-size:12px;letter-spacing:.06em;color:#a8506a;font-weight:700;border-top:1px solid #e5b6c0;padding-top:12px;margin-top:14px}
+</style></head><body>
+<div id="app"><div class="bar" id="bar"></div>
+
+<section class="s c on" id="s0">
+ <div class="env"><div class="flap"><small>ЛИЧНОЕ ПИСЬМО</small><b>Виктории</b><span>от Артёма</span></div>
+ <div class="st" style="left:6%;top:10%;transform:rotate(-8deg)">♡</div><div class="st" style="right:6%;top:14%;transform:rotate(8deg)">✿</div>
+ <div class="st" style="left:8%;bottom:8%;transform:rotate(-6deg)">✿</div><div class="st" style="right:8%;bottom:8%;transform:rotate(7deg)">♡</div>
+ <button class="seal" onclick="go(1)">♥</button><div class="hint">НАЖМИ НА ПЕЧАТЬ</div></div>
+</section>
+
+<section class="s" id="s1">
+ <div class="hero"><i style="left:12%;top:20%">♥</i><i style="right:14%;top:12%;animation-delay:1s">♥</i><i style="left:30%;bottom:20%;animation-delay:2s">♥</i><i style="right:24%;bottom:30%;animation-delay:.5s">♥</i><span class="u">☂️</span><span class="o">🦦🦦</span></div>
+ <div class="k">Лично для Виктории</div>
+ <h1>Есть идея для нас двоих. Пойдёшь со мной на свидание? 💌</h1>
+ <p>Мне показалось, что мы давно не уединялись вдвоём, очень хочу провести этот вечер с тобой 💗</p>
+ <div class="row" style="position:relative"><button class="btn" onclick="go(2)">Да, давай! ♡</button><button class="btn o" id="no">Не сейчас</button></div>
+</section>
+
+<section class="s c" id="s2">
+ <div class="heart">♥</div>
+ <h1>Так и знал, что у нас получится чудесный вечер 💞</h1>
+ <p>Начнем с прогулки по городу, если будет дождик, то одевайся потеплее, а я возьму зонтик, можем зайти в кафешку, посидеть и расслабиться, а остаток вечера провести на квартире только вдвоём</p>
+ <button class="btn" style="flex:none;width:100%" onclick="go(3)">Хочу услышать твои пожелания →</button>
+</section>
+
+<section class="s" id="s3">
+ <div class="k">Шаг 1 из 2</div>
+ <h1>Итак... Надеюсь в эти дни ты будешь свободна</h1>
+ <p>Выбери день, а всё остальное я подготовлю.</p>
+ <div class="opt"><span style="font-size:28px">🗓️</span><div>пт, 16 октября в 16:00<small>Днем</small></div></div>
+ <div class="row"><button class="btn o" onclick="go(2)">← Назад</button><button class="btn" onclick="go(4)">Выбрать дату →</button></div>
+</section>
+
+<section class="s" id="s4">
+ <div class="k">Шаг 2 из 2</div>
+ <h1>Что тебе сейчас больше хочется?</h1>
+ <p>Выбери вариант, который звучит приятнее всего.</p>
+ <div class="grid" id="grid"></div>
+ <div class="row"><button class="btn o" onclick="go(3)">← Назад</button><button class="btn" id="chk" disabled onclick="go(5)">Проверить →</button></div>
+</section>
+
+<section class="s c" id="s5">
+ <div style="font-size:44px">✨</div>
+ <div class="k">Проверим ответ</div>
+ <h1>Всё верно?</h1>
+ <p id="sum"></p>
+ <div class="row" style="justify-content:center"><button class="btn o" style="flex:none" onclick="go(4)">← Назад</button><button class="btn" style="flex:none" onclick="go(6)">➤ Отправить</button></div>
+</section>
+
+<section class="s" id="s6" style="padding-top:0">
+ <div class="top"><div class="t"><div class="k">ПРИГЛАШЕНИЕ ДЛЯ ДВОИХ</div><span class="hh">♥</span>
+  <h2>Билет на свидание</h2><hr>
+  <div class="cols"><div><small>ДАТА</small><b>16 окт.</b></div><div><small>ВРЕМЯ</small><b>16:00</b></div></div><hr>
+  <small>В ПРОГРАММЕ</small><b id="prog" style="font-size:17px"></b>
+  <div class="f">♥ ХОРОШЕЕ НАСТРОЕНИЕ ВКЛЮЧЕНО</div></div></div>
+ <div style="text-align:center;padding-top:26px">
+  <h1>Рад, что ты не отказалась 💕</h1>
+  <p id="fin"></p>
+  <button class="btn o" style="width:100%;flex:none" onclick="go(4)">✎ Изменить ответ</button><button class="btn" style="width:100%;flex:none;margin-top:12px" onclick="tg()">💌 Написать Артёму в Telegram</button></div>
+</section>
+</div>
+<script>
+const opts=[["Суши","🍣"],["Пицца","🍕"],["Прогулка","🌳"],["Кафе","☕"],["Дома вдвоём","🛋️"],["Кино дома","🍿"]];
+const sel=new Set(),$=i=>document.getElementById(i);
+$('grid').innerHTML=opts.map((o,i)=>`<div class="card" data-i="${i}"><div class="im">${o[1]}</div>${o[0]}</div>`).join('');
+document.querySelectorAll('.card').forEach(c=>c.onclick=()=>{const i=+c.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);c.classList.toggle('sel');$('chk').disabled=!sel.size});
+const list=()=>{const a=[...sel].sort().map(i=>opts[i][0]);return a.length>1?a.slice(0,-1).join(', ')+' и '+a.at(-1):a[0]||''};
+const msg=()=>'Артём, я согласна! 16 октября в 16:00. В программе — '+list();
+async function send(){try{const db=window.claude&&await claude.use('db');if(db)await db.doc('answers/viktoria').set({text:msg(),at:Date.now()})}catch(e){}}
+function tg(){const u='https://t.me/YAMDream?text='+encodeURIComponent(msg());if(!window.open(u,'_blank'))share()}
+function share(){if(navigator.share)navigator.share({text:msg()}).catch(()=>{});else{try{navigator.clipboard.writeText(msg())}catch(e){}alert('Текст скопирован — отправь его Артёму 💌')}}
+function go(n){
+ if(n==5)$('sum').textContent='пт, 16 октября в 16:00 · '+list();
+ if(n==6){send();$('prog').textContent=list();$('fin').textContent='Буду ждать тебя 16 октября в 16:00. В программе — '+list()+'✨ 💕'}
+ document.querySelectorAll('.s').forEach((s,i)=>s.classList.toggle('on',i==n));
+ $('bar').style.width=(n+1)/7*100+'%';scrollTo(0,0)}
+$('bar').style.width='14%';
+const no=$('no');['mouseenter','click','touchstart'].forEach(e=>no.addEventListener(e,ev=>{ev.preventDefault();no.style.transform=`translate(${Math.random()*60-30}px,${Math.random()*50-25}px)`}));
+</script></body></html>
